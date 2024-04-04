@@ -11,7 +11,7 @@ const work = new mongoose.Schema({
   },
   companyLink: {
     type: String,
-    required: true,
+    required: false,
   },
   timeStart: {
     type: Date,
@@ -19,7 +19,8 @@ const work = new mongoose.Schema({
   },
   timeEnd: {
     type: Date,
-    required: true,
+    required: false,
+    default: null,
   },
   currentWorking: {
     type: Boolean,
@@ -30,4 +31,4 @@ const work = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("work", work);
+module.exports = mongoose.model("Work", work);

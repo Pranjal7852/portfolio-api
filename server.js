@@ -4,6 +4,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const { dbConnect } = require("./db/dbConnect");
 const morgan = require("morgan");
+const workExperience = require("./routes/work.route");
 //importing environment variables
 require("dotenv").config();
 
@@ -16,12 +17,13 @@ app.use(morgan("dev"));
 // static public route
 app.use("/public", express.static("public"));
 const port = 8000 || process.env.PORT;
-
 app.get("/", (req, res) => {
   res
     .status(200)
     .json({ apiVersion: "1.0", author: "Pranjal Goyal", status: 200 });
 });
+
+// resume pdf route
 app.get("/resume", (req, res) => {
   const pdfPath = path.join(
     __dirname + "/public/pdf/PranjalGoyal_ResumeFullStack_Feb2024.pdf"
@@ -35,7 +37,7 @@ app.get("/resume", (req, res) => {
 });
 
 //routes
-
+app.use("/work", workExperience);
 // server starting scrpit
 app.listen(port || process.env.PORT, () => {
   console.log(`Server running at http://localhost:${port}`);
