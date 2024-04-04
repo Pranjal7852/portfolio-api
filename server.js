@@ -6,6 +6,7 @@ const { dbConnect } = require("./db/dbConnect");
 const morgan = require("morgan");
 const workExperience = require("./routes/work.route");
 const project = require("./routes/project.route");
+const blogRoutes = require("./routes/blog.route");
 //importing environment variables
 require("dotenv").config();
 
@@ -40,6 +41,7 @@ app.get("/resume", (req, res) => {
 //routes
 app.use("/work", workExperience);
 app.use("/project", project);
+app.use("/blog", blogRoutes);
 // server starting scrpit
 app.listen(port || process.env.PORT, () => {
   console.log(`Server running at http://localhost:${port}`);
