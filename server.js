@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { dbConnect } = require("./db/dbConnect");
 const morgan = require("morgan");
 const workExperience = require("./routes/work.route");
+const project = require("./routes/project.route");
 //importing environment variables
 require("dotenv").config();
 
@@ -38,6 +39,7 @@ app.get("/resume", (req, res) => {
 
 //routes
 app.use("/work", workExperience);
+app.use("/project", project);
 // server starting scrpit
 app.listen(port || process.env.PORT, () => {
   console.log(`Server running at http://localhost:${port}`);
