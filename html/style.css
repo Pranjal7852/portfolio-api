@@ -1,0 +1,204 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* text-shadow: 0.06rem 0 0.06rem #ea36af, -0.125rem 0 0.06rem #75fa69;
+  letter-spacing: 0.125em;
+  animation-duration: 0.01s;
+  animation-name: textflicker;
+  animation-iteration-count: infinite;
+  animation-direction: alternate; */
+}
+.parent {
+  display: flex;
+
+  height: 100vh;
+}
+.child-left {
+  flex: 0 0 auto;
+  width: 250px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000099;
+  display: flex;
+  position: relative;
+ 
+}
+
+.child-right {
+  flex-grow: 1;
+  background: #f3f3f3;
+
+  overflow: scroll;
+  --dotSize: 0.5px;
+  --bgSize: 30px;
+  --bgPosition: calc(var(--bgSize) / 2);
+
+  background-image: radial-gradient(
+      circle at center,
+      black var(--dotSize),
+      transparent 0
+    ), radial-gradient(circle at center, black var(--dotSize), transparent 0);
+  background-size: var(--bgSize) var(--bgSize);
+  background-position: 0 0, var(--bgPosition) var(--bgPosition);
+}
+}
+.sidebar {
+  background-color: #fff; /* Assuming the sidebar background is white */
+  padding: 20px;
+
+  border-right: 1px solid #ccc; /* Assuming a separator */
+}
+
+.close-btn {
+  text-align: right;
+  cursor: pointer;
+  font-size: 24px;
+  margin-bottom: 20px; /* Spacing after the close button */
+}
+
+.sidebar-header {
+  color: #000099; /* Main color for the header text */
+  text-align: center;
+  font-size: 32px; /* Assuming a larger font size for the header */
+  margin-bottom: 10px;
+}
+
+.sidebar-text {
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 20px; /* Spacing after the paragraph */
+}
+
+.sidebar-section,
+.menu-item,
+.search-box input[type="search"] {
+  background: #000099; /* Main color for background */
+  color: #fff; /* White text on the main color background */
+  padding: 10px;
+  margin: 10px 0;
+  border: none; /* No border by default */
+  text-align: center;
+}
+
+.sidebar-section {
+  font-weight: bold; /* Making section headers bold */
+}
+
+.search-box input[type="search"] {
+  width: calc(100% - 20px); /* Adjusting width to padding */
+  box-sizing: border-box;
+  font-size: 16px; /* Increasing font size for better readability */
+}
+
+.menu-item {
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.menu-item:hover {
+  background-color: #0000cc; /* Slightly lighter main color for hover */
+}
+
+.sidebar-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.sidebar-footer img {
+  width: 50%; /* Adjust according to actual logo size */
+  margin-bottom: 10px;
+}
+
+.footer-link {
+  color: #000099; /* Main color for the link */
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block; /* To enable margin and padding */
+  margin-top: 10px;
+}
+.right-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  padding-bottom: 0;
+  
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 20px;
+  overflow: scroll;
+}
+.grid-col {
+}
+.grid-item {
+  overflow: hidden;
+  transition: height 0.3s ease;
+  margin-bottom: 10px;
+}
+
+/* When the content is hidden, we want to ensure the .grid-item collapses to just the height of the .collapsible */
+.collapsible + .content:not(.show) {
+  display: none;
+}
+
+.collapsible + .content.show {
+  display: block;
+}
+.collapsible {
+  background: #000099;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+}
+.collapsible.active {
+  background-color: white; /* Green when active/expanded */
+  color: #000099; /* Text color when active/expanded */
+  border: 2px solid #000099;
+}
+
+
+.collapsible .toggle-symbol {
+  position: absolute;
+  right: 20px;
+}
+
+.content {
+  padding: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-family: monospace;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border: 2px solid #000099; /* Separator line */
+  border-top: 0px;
+  transition: max-height 0.3s ease;
+}
+.collapsible.active + .content {
+  max-height: 500px; /* Set to the maximum height your content might need */
+  transition: max-height 0.5s ease-in-out;
+}
+.right-header button {
+  background-color: white;
+  border:  2px solid #000099;
+  padding: 5px;
+ margin-left: 10px;
+
+}

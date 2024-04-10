@@ -4,6 +4,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jest": "^29.7.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
@@ -12,7 +13,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon index.js",
-    "test": "jest"
+    "test": "jest",
+    "generate-swagger": "node ./node_modules/swagger-jsdoc/bin/swagger-jsdoc.js -d ./swagger.js -o ./swagger.json ./routes/*.js"
   },
   "name": "portfolio-backend",
   "version": "1.0.0",
@@ -20,5 +22,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  }
 }

@@ -1,0 +1,545 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Portfolio & Blog REST API for pranjalgoyal.dev",
+    "version": "1.0.0",
+    "description": "A simple Express API for"
+  },
+  "paths": {
+    "/blog": {
+      "get": {
+        "tags": [
+          "Blog"
+        ],
+        "summary": "Get all blogs",
+        "description": "Retrieves a list of blogs, with an optional query parameter to limit the number of blogs returned, sorted by creation date in descending order.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Maximum number of blogs to return",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of blogs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Title of the blog post",
+                      "required": true
+                    },
+                    "subtitle": {
+                      "type": "string",
+                      "description": "Subtitle of the blog post"
+                    },
+                    "body": {
+                      "type": "string",
+                      "description": "Main content of the blog post",
+                      "required": true
+                    },
+                    "image": {
+                      "type": "string",
+                      "description": "URL to an image associated with the blog post"
+                    },
+                    "clapCount": {
+                      "type": "integer",
+                      "description": "The number of claps the blog post has received",
+                      "default": 0
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "The date and time when the blog post was created"
+                    },
+                    "skills": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "A list of skills highlighted in the blog post"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Tags associated with the blog post"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blog/add": {
+      "post": {
+        "tags": [
+          "Blog"
+        ],
+        "summary": "Add a new blog",
+        "description": "Adds a new blog to the database.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "body"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Title of the blog post"
+                  },
+                  "subtitle": {
+                    "type": "string",
+                    "description": "Subtitle of the blog post"
+                  },
+                  "body": {
+                    "type": "string",
+                    "description": "Main content of the blog post"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "URL to an image associated with the blog post"
+                  },
+                  "clapCount": {
+                    "type": "integer",
+                    "description": "The number of claps the blog post has received",
+                    "default": 0
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The date and time when the blog post was created"
+                  },
+                  "skills": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "A list of skills highlighted in the blog post"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Tags associated with the blog post"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New blog created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blog"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/blog/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Blog"
+        ],
+        "summary": "Delete a blog",
+        "description": "Deletes a specific blog by ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the blog to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blog deleted successfully."
+          },
+          "404": {
+            "description": "Blog not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/project": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Get all projects",
+        "description": "Returns a list of all projects.",
+        "responses": {
+          "200": {
+            "description": "A list of projects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Project"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/project/add": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Add a new project",
+        "description": "Adds a new project to the database.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "New project created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/project/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Delete a project",
+        "description": "Deletes a specific project by ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the project to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project deleted successfully."
+          },
+          "404": {
+            "description": "Project not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/work": {
+      "get": {
+        "tags": [
+          "Work Experience"
+        ],
+        "summary": "Get all work experiences",
+        "description": "Returns a list of all work experiences.",
+        "responses": {
+          "200": {
+            "description": "A list of work experiences.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Work"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/work/add": {
+      "post": {
+        "tags": [
+          "Work Experience"
+        ],
+        "summary": "Add a new work experience",
+        "description": "Adds a new work experience to the database.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Work"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "New work experience created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Work"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/work/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Work Experience"
+        ],
+        "summary": "Delete a work experience",
+        "description": "Deletes a specific work experience by ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the work experience to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Work experience deleted successfully."
+          },
+          "404": {
+            "description": "Work experience not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Blog": {
+        "type": "object",
+        "required": [
+          "title",
+          "body"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the blog post"
+          },
+          "subtitle": {
+            "type": "string",
+            "description": "Subtitle of the blog post"
+          },
+          "body": {
+            "type": "string",
+            "description": "Main content of the blog post"
+          },
+          "image": {
+            "type": "string",
+            "description": "URL to an image associated with the blog post"
+          },
+          "clapCount": {
+            "type": "integer",
+            "description": "The number of claps the blog post has received",
+            "default": 0
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the blog post was created"
+          },
+          "skills": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of skills highlighted in the blog post"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags associated with the blog post"
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "required": [
+          "projectCategory",
+          "projectName",
+          "projectDesccription"
+        ],
+        "properties": {
+          "projectCategory": {
+            "type": "string",
+            "description": "The category of the project"
+          },
+          "projectName": {
+            "type": "string",
+            "description": "The name of the project"
+          },
+          "projectGithub": {
+            "type": "string",
+            "description": "The GitHub URL of the project"
+          },
+          "projectDeployed": {
+            "type": "string",
+            "description": "The URL where the project is deployed"
+          },
+          "projectImage": {
+            "type": "string",
+            "description": "The URL of an image of the project"
+          },
+          "projectDesccription": {
+            "type": "string",
+            "description": "A detailed description of the project"
+          }
+        }
+      },
+      "Work": {
+        "type": "object",
+        "required": [
+          "companyRole",
+          "companyName",
+          "timeStart",
+          "description"
+        ],
+        "properties": {
+          "companyRole": {
+            "type": "string",
+            "description": "The role held at the company"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "The name of the company"
+          },
+          "companyLink": {
+            "type": "string",
+            "description": "Link to the company's website"
+          },
+          "timeStart": {
+            "type": "string",
+            "format": "date",
+            "description": "The start date of the employment or role"
+          },
+          "timeEnd": {
+            "type": "string",
+            "format": "date",
+            "description": "The end date of the employment or role, null if currently working"
+          },
+          "currentWorking": {
+            "type": "boolean",
+            "description": "Flag indicating whether the individual is currently working in this role"
+          },
+          "description": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of responsibilities and descriptions of the work done"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Blog",
+      "description": "Endpoints for Blog application"
+    },
+    {
+      "name": "Project",
+      "description": "List of Projects"
+    },
+    {
+      "name": "Work Experience",
+      "description": "Work experience endpoints"
+    }
+  ]
+}

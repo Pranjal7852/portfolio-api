@@ -7,6 +7,8 @@ const morgan = require("morgan");
 const workExperience = require("./routes/work.route");
 const project = require("./routes/project.route");
 const blogRoutes = require("./routes/blog.route");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
 //importing environment variables
 require("dotenv").config();
 
@@ -16,6 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // static public route
 app.use("/public", express.static("public"));
 const port = 8000 || process.env.PORT;

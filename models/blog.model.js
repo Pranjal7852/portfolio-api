@@ -25,6 +25,14 @@ const blogSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  skills: {
+    type: [String],
+    required: false,
+  },
+  tags: {
+    type: [String],
+    required: false,
+  },
 });
 
 const Blog = mongoose.model("Blog", blogSchema);
